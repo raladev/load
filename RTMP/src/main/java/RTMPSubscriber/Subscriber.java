@@ -109,7 +109,7 @@ public class Subscriber  {
                 }
             }
         };
-
+        client.connect(url, port, client.makeDefaultConnectionParams(url, port, application), connectCallback);
         do {
             try {
                 Thread.sleep(10000);
