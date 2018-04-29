@@ -1,0 +1,6 @@
+Demo for amf article.
+amf - file with amf request.
+amf.jmx - jmeter script for encoding/deconding demonstration.
+required libs:
+blazeds-core
+blazeds-common
