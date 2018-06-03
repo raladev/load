@@ -1,6 +1,7 @@
 package RTMPSubscriber;
 
-import org.apache.jmeter.config.Arguments;
+import  org.apache.jmeter.config.Arguments;
+import org.apache.jmeter.protocol.java.sampler.AbstractJavaSamplerClient;
 import org.apache.jmeter.protocol.java.sampler.JavaSamplerClient;
 import org.apache.jmeter.protocol.java.sampler.JavaSamplerContext;
 import org.apache.jmeter.samplers.SampleResult;
@@ -9,8 +10,9 @@ import org.apache.jmeter.samplers.SampleResult;
  * Hello world!
  *
  */
-public class App implements JavaSamplerClient
-{
+public class App implements JavaSamplerClient {
+
+
 
     @Override
     public void setupTest(JavaSamplerContext javaSamplerContext) {
@@ -22,7 +24,7 @@ public class App implements JavaSamplerClient
         String url = javaSamplerContext.getParameter("url");
         int port = Integer.parseInt(javaSamplerContext.getParameter("port"));
         String app = javaSamplerContext.getParameter("app");
-        String streamName = javaSamplerContext.getParameter("streamName");
+        String streamName = javaSamplerContext.getParameter("name");
         int timeout = Integer.parseInt(javaSamplerContext.getParameter("timeout"));
 
 
@@ -31,9 +33,8 @@ public class App implements JavaSamplerClient
         result.setSampleLabel("Test Sample");
         Subscriber sub = new Subscriber( url, port, app, streamName, timeout);
         sub.Subscribe();
-
         result.sampleEnd();
-        if(sub.exception) {
+        if(!sub.exception) {
             result.setResponseMessage("OK");
             result.setSuccessful(true);
         } else {
