@@ -1,18 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jmeterTestPlan version="1.2" properties="3.2" jmeter="3.3 r1808647">
+<jmeterTestPlan version="1.2" properties="4.0" jmeter="4.0 r1823414">
   <hashTree>
     <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="Test Plan" enabled="true">
       <stringProp name="TestPlan.comments"></stringProp>
       <boolProp name="TestPlan.functional_mode">false</boolProp>
       <boolProp name="TestPlan.serialize_threadgroups">false</boolProp>
       <elementProp name="TestPlan.user_defined_variables" elementType="Arguments" guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
-        <collectionProp name="Arguments.arguments">
-          <elementProp name="newEl" elementType="Argument">
-            <stringProp name="Argument.name">newEl</stringProp>
-            <stringProp name="Argument.value">false</stringProp>
-            <stringProp name="Argument.metadata">=</stringProp>
-          </elementProp>
-        </collectionProp>
+        <collectionProp name="Arguments.arguments"/>
       </elementProp>
       <stringProp name="TestPlan.user_define_classpath"></stringProp>
     </TestPlan>
@@ -68,7 +62,7 @@
           <stringProp name="HTTPSampler.port"></stringProp>
           <stringProp name="HTTPSampler.protocol"></stringProp>
           <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-          <stringProp name="HTTPSampler.path">/ooghostinthemachineoo</stringProp>
+          <stringProp name="HTTPSampler.path">/pixelradio</stringProp>
           <stringProp name="HTTPSampler.method">GET</stringProp>
           <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
           <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
@@ -102,7 +96,7 @@
           <stringProp name="HTTPSampler.port"></stringProp>
           <stringProp name="HTTPSampler.protocol"></stringProp>
           <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-          <stringProp name="HTTPSampler.path">/api/media/live/ooghostinthemachineoo?liveonly=false&amp;showHidden=true</stringProp>
+          <stringProp name="HTTPSampler.path">/api/media/live/pixelradio?liveonly=false&amp;showHidden=true</stringProp>
           <stringProp name="HTTPSampler.method">GET</stringProp>
           <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
           <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
@@ -121,7 +115,7 @@
           <stringProp name="HTTPSampler.port"></stringProp>
           <stringProp name="HTTPSampler.protocol"></stringProp>
           <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-          <stringProp name="HTTPSampler.path">/api/media/views/ooghostinthemachineoo</stringProp>
+          <stringProp name="HTTPSampler.path">/api/media/views/pixelradio</stringProp>
           <stringProp name="HTTPSampler.method">GET</stringProp>
           <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
           <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
@@ -204,7 +198,7 @@
           <stringProp name="HTTPSampler.port"></stringProp>
           <stringProp name="HTTPSampler.protocol"></stringProp>
           <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-          <stringProp name="HTTPSampler.path">/api/player/config/live/ooghostinthemachineoo</stringProp>
+          <stringProp name="HTTPSampler.path">/api/player/config/live/pixelradio</stringProp>
           <stringProp name="HTTPSampler.method">GET</stringProp>
           <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
           <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
@@ -233,7 +227,7 @@
           <stringProp name="HTTPSampler.port"></stringProp>
           <stringProp name="HTTPSampler.protocol"></stringProp>
           <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-          <stringProp name="HTTPSampler.path">/hls/ooghostinthemachineoo/index.m3u8?${manifestParams}</stringProp>
+          <stringProp name="HTTPSampler.path">/hls/pixelradio/index.m3u8?${manifestParams}</stringProp>
           <stringProp name="HTTPSampler.method">GET</stringProp>
           <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
           <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
@@ -257,15 +251,18 @@
             <stringProp name="scriptLanguage">groovy</stringProp>
             <stringProp name="parameters"></stringProp>
             <stringProp name="filename"></stringProp>
-            <stringProp name="cacheKey">6d7ae2b9-97c4-40b5-88de-f1948599d226</stringProp>
+            <stringProp name="cacheKey">true</stringProp>
             <stringProp name="script">def count = Integer.parseInt(vars.get(&quot;chunks_matchNr&quot;))
-List&lt;String&gt; myList = new ArrayList();
+List&lt;String&gt; historyList = new ArrayList();
+List&lt;String&gt; bufferList = new ArrayList();
 for (def i = 0; i &lt; count; i++) {
-	myList.add(vars.get(&quot;chunks_&quot; + (i+1)))
+	historyList.add(vars.get(&quot;chunks_&quot; + (i+1)))
 }
-log.info(String.join( &quot;,&quot;, myList ));
+log.info(String.join( &quot;,&quot;, historyList ));
 //do what you need with the list
-props.put(&quot;myList&quot;, myList);</stringProp>
+vars.putObject(&quot;historyList&quot;, historyList);
+vars.putObject(&quot;bufferList&quot;, bufferList);
+vars.put(&quot;count&quot;, &quot;0&quot;);</stringProp>
           </JSR223PostProcessor>
           <hashTree/>
         </hashTree>
@@ -277,7 +274,7 @@ props.put(&quot;myList&quot;, myList);</stringProp>
           <stringProp name="HTTPSampler.port"></stringProp>
           <stringProp name="HTTPSampler.protocol"></stringProp>
           <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-          <stringProp name="HTTPSampler.path">/hls/ooghostinthemachineoo/${chunks_8}</stringProp>
+          <stringProp name="HTTPSampler.path">/hls/pixelradio/${chunks_8}</stringProp>
           <stringProp name="HTTPSampler.method">GET</stringProp>
           <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
           <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
@@ -296,7 +293,7 @@ props.put(&quot;myList&quot;, myList);</stringProp>
           <stringProp name="HTTPSampler.port"></stringProp>
           <stringProp name="HTTPSampler.protocol"></stringProp>
           <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-          <stringProp name="HTTPSampler.path">/hls/ooghostinthemachineoo/${chunks_9}</stringProp>
+          <stringProp name="HTTPSampler.path">/hls/pixelradio/${chunks_9}</stringProp>
           <stringProp name="HTTPSampler.method">GET</stringProp>
           <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
           <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
@@ -315,7 +312,7 @@ props.put(&quot;myList&quot;, myList);</stringProp>
           <stringProp name="HTTPSampler.port"></stringProp>
           <stringProp name="HTTPSampler.protocol"></stringProp>
           <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-          <stringProp name="HTTPSampler.path">/hls/ooghostinthemachineoo/${chunks_10}</stringProp>
+          <stringProp name="HTTPSampler.path">/hls/pixelradio/${chunks_10}</stringProp>
           <stringProp name="HTTPSampler.method">GET</stringProp>
           <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
           <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
@@ -342,7 +339,7 @@ props.put(&quot;myList&quot;, myList);</stringProp>
               <stringProp name="HTTPSampler.port"></stringProp>
               <stringProp name="HTTPSampler.protocol"></stringProp>
               <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-              <stringProp name="HTTPSampler.path">/hls/ooghostinthemachineoo/index.m3u8?${manifestParams}</stringProp>
+              <stringProp name="HTTPSampler.path">/hls/pixelradio/index.m3u8?${manifestParams}</stringProp>
               <stringProp name="HTTPSampler.method">GET</stringProp>
               <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
               <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
@@ -366,30 +363,27 @@ props.put(&quot;myList&quot;, myList);</stringProp>
                 <stringProp name="scriptLanguage">groovy</stringProp>
                 <stringProp name="parameters"></stringProp>
                 <stringProp name="filename"></stringProp>
-                <stringProp name="cacheKey"></stringProp>
+                <stringProp name="cacheKey">true</stringProp>
                 <stringProp name="script">def count = Integer.parseInt(vars.get(&quot;newChunks_matchNr&quot;))
 def newcount = 0
-List&lt;String&gt; myOldList = props.get(&quot;myList&quot;);
-List&lt;String&gt; myList = new ArrayList();
+List&lt;String&gt; historyList = vars.getObject(&quot;historyList&quot;)
+List&lt;String&gt; bufferList = vars.getObject(&quot;bufferList&quot;)
 for (def i = 0; i &lt; count; i++) {
-	if (myOldList.indexOf(vars.get(&quot;newChunks_&quot; + (i+1)))==-1)
+	if (historyList.indexOf(vars.get(&quot;newChunks_&quot; + (i+1)))==-1)
 	{
 	newcount++
-	myOldList.add(vars.get(&quot;newChunks_&quot; + (i+1)))
-	myList.add(vars.get(&quot;newChunks_&quot; + (i+1)))
+	historyList.add(vars.get(&quot;newChunks_&quot; + (i+1)))
+	bufferList.add(vars.get(&quot;newChunks_&quot; + (i+1)))
 	}
 }
 //do what you need with the list
 if (newcount&gt;0)
 {
-log.info(&quot;COUNT&quot; + newcount + &quot; NEW VALUES -&quot; + String.join( &quot;,&quot;, myList ));
-props.put(&quot;myList&quot;, myOldList);
-props.put(&quot;tempList&quot;, myList);
-vars.put(&quot;newEl&quot;, &quot;true&quot;)
-}
-else
-{
-vars.put(&quot;newEl&quot;, &quot;false&quot;)
+log.info(&quot;COUNT &quot; + newcount + &quot; NEW VALUES -&quot; + String.join( &quot;,&quot;, historyList ));
+vars.putObject(&quot;historyList&quot;, historyList);
+vars.putObject(&quot;bufferList&quot;, bufferList);
+vars.put(&quot;count&quot;,String.valueOf(bufferList.size()));
+log.info(&quot;Elements in buffer - &quot; + vars.get(&quot;count&quot;));
 }
 </stringProp>
               </JSR223PostProcessor>
@@ -413,7 +407,7 @@ vars.put(&quot;newEl&quot;, &quot;false&quot;)
                 <stringProp name="RESPONSE_MESSAGE">OK</stringProp>
                 <stringProp name="REQUEST_DATA">Dummy Sampler used to simulate requests and responses
 without actual network activity. This helps debugging tests.</stringProp>
-                <stringProp name="RESPONSE_DATA">${newEl}</stringProp>
+                <stringProp name="RESPONSE_DATA">${newElements}</stringProp>
                 <stringProp name="RESPONSE_TIME">${__Random(50,500)}</stringProp>
                 <stringProp name="LATENCY">${__Random(1,50)}</stringProp>
                 <stringProp name="CONNECT">${__Random(1,5)}</stringProp>
@@ -425,26 +419,15 @@ without actual network activity. This helps debugging tests.</stringProp>
                 <hashTree/>
               </hashTree>
               <IfController guiclass="IfControllerPanel" testclass="IfController" testname="If Controller" enabled="true">
-                <stringProp name="IfController.condition">${newEl}</stringProp>
+                <stringProp name="IfController.condition">${__jexl3(&quot;${count}&quot;&gt;0,)}</stringProp>
                 <boolProp name="IfController.evaluateAll">false</boolProp>
                 <boolProp name="IfController.useExpression">true</boolProp>
               </IfController>
               <hashTree>
-                <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="JSR223 Create Temp List" enabled="true">
-                  <stringProp name="cacheKey"></stringProp>
-                  <stringProp name="filename"></stringProp>
-                  <stringProp name="parameters"></stringProp>
-                  <stringProp name="script">List&lt;String&gt; myList = props.get(&quot;tempList&quot;);
-props.put(&quot;temp2List&quot;, myList);
-vars.put(&quot;count&quot;,String.valueOf(myList.size()));
-log.info(&quot;COUNT - - - - -- &quot; + vars.get(&quot;count&quot;));</stringProp>
-                  <stringProp name="scriptLanguage">groovy</stringProp>
-                </JSR223Sampler>
-                <hashTree/>
-                <LoopController guiclass="LoopControlPanel" testclass="LoopController" testname="Loop" enabled="true">
-                  <boolProp name="LoopController.continue_forever">true</boolProp>
-                  <stringProp name="LoopController.loops">${count}</stringProp>
-                </LoopController>
+                <WhileController guiclass="WhileControllerGui" testclass="WhileController" testname="While" enabled="true">
+                  <stringProp name="TestPlan.comments">${__javaScript(${count} &gt; 0,)}</stringProp>
+                  <stringProp name="WhileController.condition">${__jexl3(&quot;${count}&quot;&gt;0,)}</stringProp>
+                </WhileController>
                 <hashTree>
                   <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET chank load ${chunkName}" enabled="true">
                     <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" enabled="true">
@@ -454,7 +437,7 @@ log.info(&quot;COUNT - - - - -- &quot; + vars.get(&quot;count&quot;));</stringPr
                     <stringProp name="HTTPSampler.port"></stringProp>
                     <stringProp name="HTTPSampler.protocol"></stringProp>
                     <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-                    <stringProp name="HTTPSampler.path">/hls/ooghostinthemachineoo/${chunkName}</stringProp>
+                    <stringProp name="HTTPSampler.path">/hls/pixelradio/${chunkName}</stringProp>
                     <stringProp name="HTTPSampler.method">GET</stringProp>
                     <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
                     <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
@@ -469,35 +452,35 @@ log.info(&quot;COUNT - - - - -- &quot; + vars.get(&quot;count&quot;));</stringPr
                       <stringProp name="scriptLanguage">groovy</stringProp>
                       <stringProp name="parameters"></stringProp>
                       <stringProp name="filename"></stringProp>
-                      <stringProp name="cacheKey"></stringProp>
-                      <stringProp name="script">List&lt;String&gt; myList = props.get(&quot;temp2List&quot;);
-int a = Integer.parseInt(vars.get(&quot;cnt&quot;));
-//log.info(&quot;CNT - -&quot; + Integer.toString(a));
-vars.put(&quot;chunkName&quot;,myList.get(a));
+                      <stringProp name="cacheKey">true</stringProp>
+                      <stringProp name="script">List&lt;String&gt; bufferList = vars.getObject(&quot;bufferList&quot;);
+vars.put(&quot;chunkName&quot;,bufferList.get(0));
 //log.info(myList.get(a));</stringProp>
                     </JSR223PreProcessor>
                     <hashTree/>
+                    <JSR223PostProcessor guiclass="TestBeanGUI" testclass="JSR223PostProcessor" testname="JSR223 PostProcessor" enabled="true">
+                      <stringProp name="scriptLanguage">groovy</stringProp>
+                      <stringProp name="parameters"></stringProp>
+                      <stringProp name="filename"></stringProp>
+                      <stringProp name="cacheKey">true</stringProp>
+                      <stringProp name="script">List&lt;String&gt; bufferList = vars.getObject(&quot;bufferList&quot;);
+bufferList.remove(vars.get(&quot;chunkName&quot;));
+vars.put(&quot;count&quot;,String.valueOf(bufferList.size()));
+log.info(&quot;Delete - &quot; + String.join( &quot;,&quot;, bufferList ));
+vars.putObject(&quot;bufferList&quot;, bufferList);</stringProp>
+                    </JSR223PostProcessor>
+                    <hashTree/>
                   </hashTree>
-                  <CounterConfig guiclass="CounterConfigGui" testclass="CounterConfig" testname="Counter" enabled="true">
-                    <stringProp name="CounterConfig.start">0</stringProp>
-                    <stringProp name="CounterConfig.end"></stringProp>
-                    <stringProp name="CounterConfig.incr">1</stringProp>
-                    <stringProp name="CounterConfig.name">cnt</stringProp>
-                    <stringProp name="CounterConfig.format"></stringProp>
-                    <boolProp name="CounterConfig.per_user">false</boolProp>
-                  </CounterConfig>
-                  <hashTree/>
                 </hashTree>
                 <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="JSR223 Set Vars" enabled="true">
                   <stringProp name="scriptLanguage">groovy</stringProp>
                   <stringProp name="parameters"></stringProp>
                   <stringProp name="filename"></stringProp>
-                  <stringProp name="cacheKey"></stringProp>
-                  <stringProp name="script">vars.put(&quot;newEl&quot;, &quot;false&quot;);
-List&lt;String&gt; myList = props.get(&quot;myList&quot;);
-if (myList.size()&gt;20)
+                  <stringProp name="cacheKey">true</stringProp>
+                  <stringProp name="script">List&lt;String&gt; historyList = vars.getObject(&quot;historyList&quot;);
+if (historyList.size()&gt;20)
 	for(int i = 0;i &lt; 10; i++)
-		myList.remove(i)</stringProp>
+		historyList.remove(i)</stringProp>
                 </JSR223Sampler>
                 <hashTree/>
               </hashTree>
@@ -542,9 +525,5 @@ if (myList.size()&gt;20)
         <hashTree/>
       </hashTree>
     </hashTree>
-    <WorkBench guiclass="WorkBenchGui" testclass="WorkBench" testname="WorkBench" enabled="true">
-      <boolProp name="WorkBench.save">true</boolProp>
-    </WorkBench>
-    <hashTree/>
   </hashTree>
 </jmeterTestPlan>
