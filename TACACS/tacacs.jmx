@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jmeterTestPlan version="1.2" properties="3.2" jmeter="3.2 r1790748">
+<jmeterTestPlan version="1.2" properties="4.0" jmeter="4.0 r1823414">
   <hashTree>
     <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="Test Plan" enabled="true">
       <stringProp name="TestPlan.comments"></stringProp>
@@ -11,6 +11,18 @@
       <stringProp name="TestPlan.user_define_classpath"></stringProp>
     </TestPlan>
     <hashTree>
+      <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="CSV Data Set Config" enabled="true">
+        <stringProp name="delimiter">,</stringProp>
+        <stringProp name="fileEncoding"></stringProp>
+        <stringProp name="filename">creds.csv</stringProp>
+        <boolProp name="ignoreFirstLine">false</boolProp>
+        <boolProp name="quotedData">false</boolProp>
+        <boolProp name="recycle">true</boolProp>
+        <stringProp name="shareMode">shareMode.all</stringProp>
+        <boolProp name="stopThread">false</boolProp>
+        <stringProp name="variableNames">login, pwd</stringProp>
+      </CSVDataSet>
+      <hashTree/>
       <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Thread Group" enabled="true">
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
@@ -26,37 +38,90 @@
         <stringProp name="ThreadGroup.delay"></stringProp>
       </ThreadGroup>
       <hashTree>
-        <SystemSampler guiclass="SystemSamplerGui" testclass="SystemSampler" testname="OS Process Sampler" enabled="true">
+        <SystemSampler guiclass="SystemSamplerGui" testclass="SystemSampler" testname="OS Process - authenticate" enabled="true">
           <boolProp name="SystemSampler.checkReturnCode">false</boolProp>
           <stringProp name="SystemSampler.expectedReturnCode">0</stringProp>
-          <stringProp name="SystemSampler.command"></stringProp>
+          <stringProp name="SystemSampler.command">python</stringProp>
           <elementProp name="SystemSampler.arguments" elementType="Arguments" guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
-            <collectionProp name="Arguments.arguments"/>
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="Argument">
+                <stringProp name="Argument.name"></stringProp>
+                <stringProp name="Argument.value">tacacs_client</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+              <elementProp name="" elementType="Argument">
+                <stringProp name="Argument.name"></stringProp>
+                <stringProp name="Argument.value">-u</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+              <elementProp name="" elementType="Argument">
+                <stringProp name="Argument.name"></stringProp>
+                <stringProp name="Argument.value">${login}</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+              <elementProp name="" elementType="Argument">
+                <stringProp name="Argument.name"></stringProp>
+                <stringProp name="Argument.value">-H</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+              <elementProp name="" elementType="Argument">
+                <stringProp name="Argument.name"></stringProp>
+                <stringProp name="Argument.value">localhost</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+              <elementProp name="" elementType="Argument">
+                <stringProp name="Argument.name"></stringProp>
+                <stringProp name="Argument.value">-k</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+              <elementProp name="" elementType="Argument">
+                <stringProp name="Argument.name"></stringProp>
+                <stringProp name="Argument.value">${pwd}</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+              <elementProp name="" elementType="Argument">
+                <stringProp name="Argument.name"></stringProp>
+                <stringProp name="Argument.value">-v</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+              <elementProp name="" elementType="Argument">
+                <stringProp name="Argument.name"></stringProp>
+                <stringProp name="Argument.value">authenticate</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+              <elementProp name="" elementType="Argument">
+                <stringProp name="Argument.name"></stringProp>
+                <stringProp name="Argument.value">-p</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+              <elementProp name="" elementType="Argument">
+                <stringProp name="Argument.name"></stringProp>
+                <stringProp name="Argument.value">my_password</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
           </elementProp>
           <elementProp name="SystemSampler.environment" elementType="Arguments" guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
             <collectionProp name="Arguments.arguments"/>
           </elementProp>
-          <stringProp name="SystemSampler.directory"></stringProp>
+          <stringProp name="SystemSampler.directory">/home/exo1/tacacs_plus-maste/bin</stringProp>
         </SystemSampler>
         <hashTree/>
-        <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="JSR232 Sampler Python" enabled="true">
-          <stringProp name="cacheKey"></stringProp>
+        <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="JSR232 Sampler authenticate" enabled="true">
+          <stringProp name="cacheKey">true</stringProp>
           <stringProp name="filename"></stringProp>
           <stringProp name="parameters"></stringProp>
-          <stringProp name="script">#!/usr/bin/env python
-from __future__ import print_function
+          <stringProp name="script">import com.augur.tacacs.*; 
 
-from tacacs_plus.client import TACACSClient
-from tacacs_plus.flags import TAC_PLUS_ACCT_FLAG_START, TAC_PLUS_ACCT_FLAG_WATCHDOG, TAC_PLUS_ACCT_FLAG_STOP
-import socket
+	TacacsClient tc = new TacacsClient(&quot;localhost&quot;, &quot;testing123&quot;); //address and key
+	SessionClient s = tc.newSession(TAC_PLUS.AUTHEN.SVC.LOGIN, &quot;console&quot;, &quot;localhost&quot;, TAC_PLUS.PRIV_LVL.USER.code());
+ 	AuthenReply authen = s.authenticate_PAP(vars.get(&quot;login&quot;), vars.get(&quot;pwd&quot;));
+	if (authen.server_msg!=null) System.out.println(&quot;&gt; \&quot;&quot;+authen.server_msg+&quot;\&quot;&quot;);
+	System.out.println(&quot;TACACS+: Login success? &quot; + authen.isOK());// print to OS console
+	prev.setResponseData(authen.isOK());// save the result to Response Tab
 
-# For IPv6, use `family=socket.AF_INET6`
-cli = TACACSClient(&apos;localhost&apos;, 49, &apos;testing123&apos;, timeout=10, family=socket.AF_INET)
-
-# authenticate user and pass
-authen = cli.authenticate(&apos;admin&apos;, &apos;my_password&apos;)
-print(&quot;status:PASS!&quot; if authen.valid else &quot;status:FAIL!&quot;)</stringProp>
-          <stringProp name="scriptLanguage">jython</stringProp>
+</stringProp>
+          <stringProp name="scriptLanguage">groovy</stringProp>
         </JSR223Sampler>
         <hashTree>
           <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
@@ -66,36 +131,46 @@ print(&quot;status:PASS!&quot; if authen.valid else &quot;status:FAIL!&quot;)</s
             <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
             <boolProp name="Assertion.assume_success">false</boolProp>
             <intProp name="Assertion.test_type">8</intProp>
+            <stringProp name="Assertion.custom_message"></stringProp>
           </ResponseAssertion>
           <hashTree/>
         </hashTree>
-        <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="JSR232 Sampler Java" enabled="true">
-          <stringProp name="cacheKey"></stringProp>
+        <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="JSR232 Sampler authenticate + authorize" enabled="true">
+          <stringProp name="cacheKey">true</stringProp>
           <stringProp name="filename"></stringProp>
           <stringProp name="parameters"></stringProp>
-          <stringProp name="script">#!/usr/bin/env python
-from __future__ import print_function
+          <stringProp name="script">import com.augur.tacacs.*; 
 
-from tacacs_plus.client import TACACSClient
-from tacacs_plus.flags import TAC_PLUS_ACCT_FLAG_START, TAC_PLUS_ACCT_FLAG_WATCHDOG, TAC_PLUS_ACCT_FLAG_STOP
-import socket
-
-# For IPv6, use `family=socket.AF_INET6`
-cli = TACACSClient(&apos;localhost&apos;, 49, &apos;testing123&apos;, timeout=10, family=socket.AF_INET)
-
-# authenticate user and pass
-authen = cli.authenticate(&apos;admin&apos;, &apos;my_password&apos;)
-print(&quot;status:PASS!&quot; if authen.valid else &quot;status:FAIL!&quot;)</stringProp>
-          <stringProp name="scriptLanguage">jython</stringProp>
+	TacacsClient tc = new TacacsClient(&quot;localhost&quot;, &quot;testing123&quot;);
+	SessionClient s = tc.newSession(TAC_PLUS.AUTHEN.SVC.LOGIN, &quot;console&quot;, &quot;localhost&quot;, TAC_PLUS.PRIV_LVL.USER.code());
+	AuthenReply authen = s.authenticate_PAP(vars.get(&quot;login&quot;), vars.get(&quot;pwd&quot;));// authetication
+	if (authen.server_msg!=null) System.out.println(&quot;&gt; \&quot;&quot;+authen.server_msg+&quot;\&quot;&quot;);
+	System.out.println(&quot;TACACS+: Login success? &quot; + authen.isOK());
+	prev.setResponseData(authen.isOK());// save the result to Response Tab
+	if (authen.isOK())// if authentication is OK
+	{
+		AuthorReply author = s.authorize( //authorization
+			username, 
+			TAC_PLUS.AUTHEN.METH.TACACSPLUS, 
+			TAC_PLUS.AUTHEN.TYPE.PAP, 
+			TAC_PLUS.AUTHEN.SVC.LOGIN, 
+			new Argument[] { new Argument(&quot;service=shell cmd=show cmdarg=version&quot;) });
+		if (author.server_msg!=null) System.out.println(&quot;&gt; \&quot;&quot;+author.server_msg+&quot;\&quot;&quot;);
+		System.out.println(&quot;TACACS+: Authorization success? &quot;+ author.isOK());
+		prev.setResponseData(author.isOK());// save the result to Response Tab
+	}
+</stringProp>
+          <stringProp name="scriptLanguage">groovy</stringProp>
         </JSR223Sampler>
         <hashTree>
           <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
             <collectionProp name="Asserion.test_strings">
-              <stringProp name="2448401">PASS</stringProp>
+              <stringProp name="2150174">FAIL</stringProp>
             </collectionProp>
             <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
             <boolProp name="Assertion.assume_success">false</boolProp>
-            <intProp name="Assertion.test_type">8</intProp>
+            <intProp name="Assertion.test_type">6</intProp>
+            <stringProp name="Assertion.custom_message"></stringProp>
           </ResponseAssertion>
           <hashTree/>
         </hashTree>
@@ -137,9 +212,5 @@ print(&quot;status:PASS!&quot; if authen.valid else &quot;status:FAIL!&quot;)</s
         <hashTree/>
       </hashTree>
     </hashTree>
-    <WorkBench guiclass="WorkBenchGui" testclass="WorkBench" testname="WorkBench" enabled="true">
-      <boolProp name="WorkBench.save">true</boolProp>
-    </WorkBench>
-    <hashTree/>
   </hashTree>
 </jmeterTestPlan>
